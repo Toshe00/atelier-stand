@@ -1,6 +1,5 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
 import { formatPrice } from "@/lib/money";
 import {
@@ -18,29 +17,25 @@ const woodChoices: Array<{
   value: WoodType;
   label: string;
   note: string;
-  grain: CSSProperties;
-  light: string;
+  textureClass: string;
 }> = [
   {
     value: "oak",
     label: "Chêne",
     note: "Veinage noble, clair et premium",
-    light: "#d4a66a",
-    grain: woodTexture("#d9ad72", "#b77d43", "#7a4c27"),
+    textureClass: "wood-oak",
   },
   {
     value: "pine",
     label: "Pin",
     note: "Naturel, lumineux et accessible",
-    light: "#e6bd78",
-    grain: woodTexture("#f0ca86", "#c99553", "#8a5c2e"),
+    textureClass: "wood-pine",
   },
   {
     value: "walnut",
     label: "Noyer",
     note: "Sombre, raffiné, très haut de gamme",
-    light: "#7b4a2d",
-    grain: woodTexture("#8b5a38", "#56321f", "#24140d"),
+    textureClass: "wood-walnut",
   },
 ];
 
@@ -304,8 +299,7 @@ export function CustomConfigurator() {
                   aria-pressed={isSelected}
                 >
                   <span
-                    className="mb-5 block h-10 rounded-[4px] shadow-inner"
-                    style={wood.grain}
+                    className={`wood-surface finish-satin mb-5 block h-12 rounded-[4px] shadow-inner ${wood.textureClass}`}
                   />
                   <span className="font-serif text-2xl">{wood.label}</span>
                   <span className="mt-3 block text-sm leading-5 text-neutral-600">
@@ -536,6 +530,7 @@ function StandPreview({
         ? "opacity-20"
         : "opacity-32";
   const logoMark = logoChoices.find((logo) => logo.value === logoPreset)?.mark ?? "✦";
+  const woodClass = `${wood.textureClass} finish-${finish}`;
 
   return (
     <div className="mt-6 overflow-hidden rounded-[8px] border border-white/10 bg-[radial-gradient(circle_at_50%_12%,rgba(255,231,175,0.16),transparent_36%),#21160f] px-4 pb-8 pt-7">
@@ -550,34 +545,30 @@ function StandPreview({
           }}
         >
           <div
-            className="absolute bottom-[13%] left-[2%] h-[68%] w-[96%] rounded-[6px] border border-black/25"
+            className={`wood-surface absolute bottom-[13%] left-[2%] h-[68%] w-[96%] rounded-[6px] border border-black/25 ${woodClass}`}
             style={{
-              ...wood.grain,
               boxShadow: `${depth}px ${Math.round(depth * 0.62)}px 0 rgba(0,0,0,0.24)`,
             }}
           >
-            <div className={`absolute inset-0 bg-white ${sheen}`} />
-            <div className="absolute inset-x-[-1%] -top-[8%] h-[11%] rounded-[4px] border border-black/20 shadow-[0_12px_24px_rgba(0,0,0,0.16)]" style={wood.grain}>
-              <div className={`absolute inset-0 bg-white ${sheen}`} />
+            <div className={`pointer-events-none absolute inset-0 z-[3] bg-white mix-blend-soft-light ${sheen}`} />
+            <div className={`wood-surface absolute inset-x-[-1%] -top-[8%] h-[11%] rounded-[4px] border border-black/20 shadow-[0_12px_24px_rgba(0,0,0,0.16)] ${woodClass}`}>
+              <div className={`pointer-events-none absolute inset-0 bg-white mix-blend-soft-light ${sheen}`} />
             </div>
-            <div className="absolute inset-x-[4%] top-[10%] h-[35%] rounded-[4px] border border-white/30 bg-white/20 backdrop-blur-[1px]">
-              <div className="absolute inset-x-[8%] top-1/2 h-px bg-white/42" />
-              {config.options.lighting ? (
-                <div className="absolute inset-x-[10%] -top-2 flex justify-between">
-                  {[0, 1, 2, 3].map((item) => (
-                    <span
-                      key={item}
-                      className="size-3 rounded-full bg-amber-200 shadow-[0_0_22px_rgba(252,211,77,0.95)]"
-                    />
-                  ))}
-                </div>
-              ) : null}
-            </div>
+            {config.options.lighting ? (
+              <div className="absolute inset-x-[13%] top-[12%] z-[4] flex justify-between">
+                {[0, 1, 2, 3].map((item) => (
+                  <span
+                    key={item}
+                    className="size-3 rounded-full bg-amber-200 shadow-[0_0_22px_rgba(252,211,77,0.95)]"
+                  />
+                ))}
+              </div>
+            ) : null}
             {config.options.shelves ? (
-              <div className="absolute inset-x-[9%] top-[53%] h-2 rounded-full bg-[#f8e8c5]/58 shadow-[0_30px_0_rgba(248,232,197,0.45)]" />
+              <div className="absolute inset-x-[9%] top-[42%] z-[4] h-2 rounded-full bg-[#f8e8c5]/58 shadow-[0_42px_0_rgba(248,232,197,0.45)]" />
             ) : null}
             {config.options.storage ? (
-              <div className="absolute inset-x-[8%] bottom-[7%] h-[20%] rounded-[3px] border border-black/20 bg-black/12" />
+              <div className="absolute inset-x-[8%] bottom-[7%] z-[4] h-[20%] rounded-[3px] border border-black/20 bg-black/12" />
             ) : null}
             {config.options.logoEngraving ? (
               <LogoPreview
@@ -615,25 +606,29 @@ function LogoPreview({
   logoMark,
   uploadedLogo,
 }: LogoPreviewProps) {
-  return (
-    <div className="absolute bottom-[9%] left-1/2 flex size-24 -translate-x-1/2 items-center justify-center rounded-full border border-[#f8e8c5]/34 bg-neutral-950/72 p-3 text-center text-[#f8e8c5] shadow-[0_12px_30px_rgba(0,0,0,0.28)]">
-      {uploadedLogo ? (
+  if (uploadedLogo) {
+    return (
+      <div className="absolute left-1/2 top-1/2 z-[5] flex size-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center p-1">
         <span
-          className="block size-full bg-contain bg-center bg-no-repeat"
+          className="block size-full bg-contain bg-center bg-no-repeat drop-shadow-[0_8px_18px_rgba(0,0,0,0.26)]"
           style={{ backgroundImage: `url(${uploadedLogo})` }}
           aria-label="Logo importé"
         />
-      ) : (
-        <span className="grid gap-1">
-          <span className="text-lg leading-none">{logoMark}</span>
-          <span className="line-clamp-2 text-[9px] font-bold uppercase leading-3 tracking-[0.12em]">
-            {brandName || "Votre marque"}
-          </span>
-          <span className="truncate text-[7px] uppercase tracking-[0.1em] text-[#f8e8c5]/68">
-            {tagline || "Signature"}
-          </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute left-1/2 top-1/2 z-[5] flex size-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#f8e8c5]/34 bg-neutral-950/72 p-3 text-center text-[#f8e8c5] shadow-[0_12px_30px_rgba(0,0,0,0.28)]">
+      <span className="grid gap-1">
+        <span className="text-lg leading-none">{logoMark}</span>
+        <span className="line-clamp-2 text-[9px] font-bold uppercase leading-3 tracking-[0.12em]">
+          {brandName || "Votre marque"}
         </span>
-      )}
+        <span className="truncate text-[7px] uppercase tracking-[0.1em] text-[#f8e8c5]/68">
+          {tagline || "Signature"}
+        </span>
+      </span>
     </div>
   );
 }
@@ -712,16 +707,4 @@ function SummaryRow({ label, value }: SummaryRowProps) {
       <dd className="font-semibold">{value}</dd>
     </div>
   );
-}
-
-function woodTexture(base: string, mid: string, dark: string): CSSProperties {
-  return {
-    backgroundColor: base,
-    backgroundImage: `
-      linear-gradient(90deg, rgba(255,255,255,0.20), rgba(0,0,0,0.12)),
-      repeating-linear-gradient(92deg, ${base} 0 14px, ${mid} 15px 17px, ${base} 18px 30px, ${dark} 31px 32px),
-      radial-gradient(circle at 20% 42%, rgba(255,255,255,0.22), transparent 18%),
-      radial-gradient(circle at 82% 64%, rgba(0,0,0,0.14), transparent 24%)
-    `,
-  };
 }

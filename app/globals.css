@@ -61,6 +61,103 @@ body {
   backdrop-filter: blur(18px);
 }
 
+.wood-surface {
+  background-repeat: repeat;
+  background-size: 480px 160px;
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+}
+
+.wood-surface::before {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.09) 0,
+      rgba(255, 255, 255, 0.09) 1px,
+      transparent 1px,
+      transparent 34px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 33px,
+      rgba(18, 9, 4, 0.22) 34px,
+      rgba(18, 9, 4, 0.22) 35px
+    );
+  content: "";
+  inset: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.58;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.wood-surface::after {
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+.wood-oak {
+  background-color: #c9965b;
+  background-image:
+    url("/images/textures/oak.svg"),
+    linear-gradient(90deg, #c78f50 0%, #e2bd7d 32%, #b8793e 62%, #d7a463 100%);
+  background-blend-mode: multiply, normal;
+}
+
+.wood-pine {
+  background-color: #e2ba75;
+  background-image:
+    url("/images/textures/pine.svg"),
+    linear-gradient(90deg, #eac581 0%, #f4d99e 38%, #d6a45a 68%, #edca86 100%);
+  background-blend-mode: multiply, normal;
+}
+
+.wood-walnut {
+  background-color: #5b3522;
+  background-image:
+    url("/images/textures/walnut.svg"),
+    linear-gradient(90deg, #6c432a 0%, #2f1a10 24%, #835638 52%, #21120b 74%, #74492d 100%);
+  background-blend-mode: multiply, normal;
+}
+
+.finish-matte {
+  filter: saturate(0.96) contrast(0.96) brightness(1.03);
+}
+
+.finish-matte::after {
+  background: rgba(255, 250, 238, 0.08);
+  mix-blend-mode: screen;
+}
+
+.finish-satin {
+  filter: saturate(1.04) contrast(1.04) brightness(1.02);
+}
+
+.finish-satin::after {
+  background:
+    linear-gradient(118deg, transparent 0 34%, rgba(255, 245, 214, 0.24) 44%, transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 52%, rgba(0, 0, 0, 0.08));
+  mix-blend-mode: soft-light;
+}
+
+.finish-oiled {
+  filter: saturate(1.24) contrast(1.18) brightness(0.95);
+}
+
+.finish-oiled::after {
+  background:
+    linear-gradient(90deg, rgba(112, 49, 18, 0.16), rgba(255, 190, 110, 0.10), rgba(33, 12, 4, 0.18)),
+    repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 19px);
+  mix-blend-mode: multiply;
+  opacity: 0.56;
+}
+
 .fine-divider {
   border-color: rgba(23, 18, 13, 0.12);
 }
