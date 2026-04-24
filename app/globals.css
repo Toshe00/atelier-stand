@@ -62,8 +62,9 @@ body {
 }
 
 .wood-surface {
-  background-repeat: repeat;
-  background-size: 480px 160px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   isolation: isolate;
   overflow: hidden;
   position: relative;
@@ -71,10 +72,12 @@ body {
 
 .wood-surface::before {
   background:
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.08), transparent 22%),
+    radial-gradient(circle at 74% 72%, rgba(0, 0, 0, 0.08), transparent 26%),
     repeating-linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.09) 0,
-      rgba(255, 255, 255, 0.09) 1px,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 1px,
       transparent 1px,
       transparent 34px
     ),
@@ -82,13 +85,14 @@ body {
       90deg,
       transparent 0,
       transparent 33px,
-      rgba(18, 9, 4, 0.22) 34px,
-      rgba(18, 9, 4, 0.22) 35px
-    );
+      rgba(18, 9, 4, 0.2) 34px,
+      rgba(18, 9, 4, 0.2) 35px
+    ),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
   content: "";
   inset: 0;
-  mix-blend-mode: multiply;
-  opacity: 0.58;
+  mix-blend-mode: soft-light;
+  opacity: 0.72;
   pointer-events: none;
   position: absolute;
   z-index: 1;
@@ -103,59 +107,62 @@ body {
 }
 
 .wood-oak {
-  background-color: #c9965b;
+  background-color: #d2a567;
   background-image:
-    url("/images/textures/oak.svg"),
-    linear-gradient(90deg, #c78f50 0%, #e2bd7d 32%, #b8793e 62%, #d7a463 100%);
-  background-blend-mode: multiply, normal;
+    linear-gradient(90deg, rgba(255, 246, 218, 0.08), rgba(95, 48, 17, 0.08)),
+    url("/images/textures/oak-photo.jfif");
+  background-blend-mode: soft-light, normal;
 }
 
 .wood-pine {
-  background-color: #e2ba75;
+  background-color: #e6c88d;
   background-image:
-    url("/images/textures/pine.svg"),
-    linear-gradient(90deg, #eac581 0%, #f4d99e 38%, #d6a45a 68%, #edca86 100%);
-  background-blend-mode: multiply, normal;
+    linear-gradient(90deg, rgba(255, 250, 225, 0.1), rgba(126, 83, 28, 0.05)),
+    url("/images/textures/pine-photo.jfif");
+  background-blend-mode: soft-light, normal;
 }
 
 .wood-walnut {
   background-color: #5b3522;
   background-image:
-    url("/images/textures/walnut.svg"),
-    linear-gradient(90deg, #6c432a 0%, #2f1a10 24%, #835638 52%, #21120b 74%, #74492d 100%);
-  background-blend-mode: multiply, normal;
+    linear-gradient(90deg, rgba(217, 137, 78, 0.06), rgba(8, 4, 2, 0.2)),
+    url("/images/textures/walnut-photo.jfif");
+  background-blend-mode: soft-light, normal;
 }
 
 .finish-matte {
-  filter: saturate(0.96) contrast(0.96) brightness(1.03);
+  filter: saturate(0.9) contrast(0.86) brightness(1.02);
 }
 
 .finish-matte::after {
-  background: rgba(255, 250, 238, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 238, 0.10), rgba(255, 250, 238, 0.04)),
+    rgba(255, 250, 238, 0.04);
   mix-blend-mode: screen;
 }
 
 .finish-satin {
-  filter: saturate(1.04) contrast(1.04) brightness(1.02);
+  filter: saturate(1.03) contrast(1.02) brightness(1.02);
 }
 
 .finish-satin::after {
   background:
-    linear-gradient(118deg, transparent 0 34%, rgba(255, 245, 214, 0.24) 44%, transparent 58%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 52%, rgba(0, 0, 0, 0.08));
+    linear-gradient(118deg, transparent 0 34%, rgba(255, 245, 214, 0.20) 44%, transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent 52%, rgba(0, 0, 0, 0.08));
   mix-blend-mode: soft-light;
 }
 
 .finish-oiled {
-  filter: saturate(1.24) contrast(1.18) brightness(0.95);
+  filter: saturate(1.18) contrast(1.24) brightness(0.9);
 }
 
 .finish-oiled::after {
   background:
-    linear-gradient(90deg, rgba(112, 49, 18, 0.16), rgba(255, 190, 110, 0.10), rgba(33, 12, 4, 0.18)),
-    repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 19px);
+    linear-gradient(90deg, rgba(94, 42, 15, 0.22), rgba(255, 178, 89, 0.08), rgba(25, 9, 3, 0.2)),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.05), transparent 34%, rgba(0, 0, 0, 0.18)),
+    repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 22px);
   mix-blend-mode: multiply;
-  opacity: 0.56;
+  opacity: 0.58;
 }
 
 .fine-divider {
