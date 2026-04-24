@@ -527,7 +527,7 @@ function StandPreview({
   uploadedLogo,
 }: StandPreviewProps) {
   const standWidth = 300 + ((config.width - 100) / 300) * 170;
-  const standHeight = 260 + ((config.height - 120) / 160) * 90;
+  const standHeight = 220 + ((config.height - 120) / 160) * 70;
   const depth = 18 + ((config.depth - 40) / 120) * 26;
   const sheen =
     finish === "matte"
@@ -539,7 +539,7 @@ function StandPreview({
 
   return (
     <div className="mt-6 overflow-hidden rounded-[8px] border border-white/10 bg-[radial-gradient(circle_at_50%_12%,rgba(255,231,175,0.16),transparent_36%),#21160f] px-4 pb-8 pt-7">
-      <div className="relative mx-auto flex min-h-[430px] max-w-[640px] items-end justify-center">
+      <div className="relative mx-auto flex min-h-[390px] max-w-[640px] items-end justify-center">
         <div className="absolute inset-x-4 bottom-0 h-16 rounded-[50%] bg-black/40 blur-xl" />
         <div
           className="relative transition-all duration-500"
@@ -550,32 +550,17 @@ function StandPreview({
           }}
         >
           <div
-            className="absolute left-[9%] right-[9%] top-0 z-20 h-[21%] rounded-t-[5px] border border-black/20 shadow-[0_16px_24px_rgba(0,0,0,0.2)]"
-            style={wood.grain}
-          >
-            <div className={`absolute inset-0 bg-white ${sheen}`} />
-            <div className="absolute inset-x-[12%] top-[26%] rounded-[3px] border border-[#d8a64a]/30 bg-neutral-950/88 px-3 py-2 text-center shadow-inner">
-              <p className="break-words font-serif text-[clamp(13px,1.75vw,24px)] uppercase leading-tight tracking-[0.1em] text-[#f8e8c5]">
-                {brandName || "Votre marque"}
-              </p>
-              <p className="mt-1 text-[clamp(7px,1vw,12px)] font-semibold uppercase tracking-[0.18em] text-[#f8e8c5]/78">
-                {tagline || "Signature"}
-              </p>
-            </div>
-          </div>
-
-          <div className="absolute left-[6%] top-[19%] z-10 h-[66%] w-[3%] bg-neutral-950/82" />
-          <div className="absolute right-[6%] top-[19%] z-10 h-[66%] w-[3%] bg-neutral-950/82" />
-
-          <div
-            className="absolute bottom-[13%] left-[2%] h-[46%] w-[96%] rounded-[4px] border border-black/25"
+            className="absolute bottom-[13%] left-[2%] h-[68%] w-[96%] rounded-[6px] border border-black/25"
             style={{
               ...wood.grain,
               boxShadow: `${depth}px ${Math.round(depth * 0.62)}px 0 rgba(0,0,0,0.24)`,
             }}
           >
             <div className={`absolute inset-0 bg-white ${sheen}`} />
-            <div className="absolute inset-x-[4%] top-[13%] h-[34%] rounded-[4px] border border-white/30 bg-white/18 backdrop-blur-[1px]">
+            <div className="absolute inset-x-[-1%] -top-[8%] h-[11%] rounded-[4px] border border-black/20 shadow-[0_12px_24px_rgba(0,0,0,0.16)]" style={wood.grain}>
+              <div className={`absolute inset-0 bg-white ${sheen}`} />
+            </div>
+            <div className="absolute inset-x-[4%] top-[10%] h-[35%] rounded-[4px] border border-white/30 bg-white/20 backdrop-blur-[1px]">
               <div className="absolute inset-x-[8%] top-1/2 h-px bg-white/42" />
               {config.options.lighting ? (
                 <div className="absolute inset-x-[10%] -top-2 flex justify-between">
@@ -589,7 +574,7 @@ function StandPreview({
               ) : null}
             </div>
             {config.options.shelves ? (
-              <div className="absolute inset-x-[9%] top-[55%] h-2 rounded-full bg-[#f8e8c5]/58 shadow-[0_28px_0_rgba(248,232,197,0.45)]" />
+              <div className="absolute inset-x-[9%] top-[53%] h-2 rounded-full bg-[#f8e8c5]/58 shadow-[0_30px_0_rgba(248,232,197,0.45)]" />
             ) : null}
             {config.options.storage ? (
               <div className="absolute inset-x-[8%] bottom-[7%] h-[20%] rounded-[3px] border border-black/20 bg-black/12" />

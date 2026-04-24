@@ -45,24 +45,25 @@ const heroLinks = [
   {
     href: "/configurator",
     label: "Créer votre stand",
-    className: "left-[5.4%] top-[69.2%] h-[8.2%] w-[16.6%]",
+    className: "left-[5.2%] top-[68.8%] h-[10.2%] w-[17.2%]",
   },
   {
     href: "/shop",
     label: "Voir les modèles",
-    className: "left-[23%] top-[69.2%] h-[8.2%] w-[13.9%]",
+    className: "left-[22.6%] top-[68.8%] h-[10.2%] w-[14.8%]",
   },
 ];
 
 export function Hero() {
   return (
     <section className="bg-[#080705]">
-      <div className="relative aspect-[1780/883] w-full overflow-hidden">
+      <div className="relative aspect-[3840/1904] w-full overflow-hidden">
         <Image
           src="/images/home-pages.png"
           alt="Atelier Stand - des stands en bois sur mesure pour sublimer votre marque"
           fill
           priority
+          unoptimized
           sizes="100vw"
           className="object-contain"
         />
